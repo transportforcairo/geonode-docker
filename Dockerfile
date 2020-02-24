@@ -32,8 +32,8 @@ RUN pip install --upgrade pip
 #let's install pygdal wheels compatible with the provided libgdal-dev
 RUN gdal-config --version | cut -c 1-5 | xargs -I % pip install 'pygdal>=%.0,<=%.999'
 
-# install shallow clone of geonode 2.10.2 branch
-RUN git clone --depth=1 git://github.com/GeoNode/geonode.git --branch 2.10.2 /usr/src/geonode
+# install shallow clone of geonode 2.10.3 branch
+RUN git clone --depth=1 git://github.com/GeoNode/geonode.git --branch 2.10.3 /usr/src/geonode
 RUN cd /usr/src/geonode/; pip install -r requirements.txt; pip install -e .
 
 
@@ -44,7 +44,7 @@ RUN chmod +x /usr/src/app/tasks.py \
     && chmod +x /usr/src/app/entrypoint.sh
 
 
-# use 2.10.2
+# use 2.10.3
 ONBUILD RUN cd /usr/src/geonode/; git pull ; pip install -r requirements.txt; pip install -e .
 ONBUILD COPY . /usr/src/app
 ONBUILD RUN pip install -r /usr/src/app/requirements.txt
