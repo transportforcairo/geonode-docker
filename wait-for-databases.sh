@@ -5,11 +5,6 @@ set -e
 host="$1"
 shift
 
-until PGPASSWORD=postgres psql -h "$host" -U "postgres" -P "pager=off" -c '\l'; do
-  >&2 echo "Postgres is unavailable - sleeping"
-  sleep 1
-done
-
 until PGPASSWORD=${GEONODE_DATABASE_PASSWORD} psql -h "$host" -U ${GEONODE_DATABASE} -d ${GEONODE_DATABASE} -P "pager=off" -c '\l'; do
   >&2 echo "${GEONODE_DATABASE} is unavailable - sleeping"
   sleep 1
